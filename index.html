@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATSify | Premium AI ATS Resume Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body data-theme="light" data-accent="sapphire">
+    
+    <header class="app-header">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fa-solid fa-file-invoice"></i></div>
+            <h1>ATSify<span>Resume</span></h1>
+        </div>
+        
+        <div class="global-progress-container">
+            <div class="progress-meta">
+                <span class="progress-label"><i class="fa-solid fa-gauge-high"></i> Profile Completion</span>
+                <span id="progress-percentage">0%</span>
+            </div>
+            <div class="progress-track">
+                <div id="progress-bar-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <div class="theme-selector-wrapper">
+                <button id="theme-toggle-btn" class="icon-btn" title="Toggle Dark/Light Mode" aria-label="Toggle dark mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <div class="accent-picker" title="Change Theme Accent Color">
+                    <span class="accent-dot sapphire active" data-accent="sapphire"></span>
+                    <span class="accent-dot emerald" data-accent="emerald"></span>
+                    <span class="accent-dot amethyst" data-accent="amethyst"></span>
+                    <span class="accent-dot amber" data-accent="amber"></span>
+                </div>
+            </div>
+            <button id="btn-load-sample" class="btn btn-secondary"><i class="fa-solid fa-database"></i> Sample</button>
+            <button id="btn-clear-form" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Reset</button>
+        </div>
+    </header>
+
+    <main class="app-container">
+        
+        <section class="form-workspace" aria-label="Resume Information Input">
+            
+            <div class="accordion-item expanded" id="sec-personal">
+                <button class="accordion-trigger" aria-expanded="true">
+                    <span><i class="fa-solid fa-user-tie icon-gradient"></i> 1. Personal Information</span>
+                    <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="grid-2-col">
+                        <div class="form-group">
+                            <label for="input-fullname">Full Name <span class="required">*</span></label>
+                            <input type="text" id="input-fullname" class="form-input" placeholder="Alex Morgan" required>
+                            <span class="error-msg" id="err-fullname"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-title">Professional Title</label>
+                            <input type="text" id="input-title" class="form-input" placeholder="Senior Full Stack Engineer">
+                        </div>
+                    </div>
+
+                    <div class="grid-2-col">
+                        <div class="form-group">
+                            <label for="input-email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="input-email" class="form-input" placeholder="alex.morgan@domain.com" required>
+                            <span class="error-msg" id="err-email"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-phone">Phone Number</label>
+                            <input type="tel" id="input-phone" class="form-input" placeholder="+91 98765 43210">
+                            <span class="error-msg" id="err-phone"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-address">Physical Address</label>
+                        <input type="text" id="input-address" class="form-input" placeholder="San Francisco, CA">
+                    </div>
+
+                    <div class="grid-3-col">
+                        <div class="form-group">
+                            <label for="input-linkedin"><i class="fa-brands fa-linkedin"></i> LinkedIn URL</label>
+                            <input type="url" id="input-linkedin" class="form-input" placeholder="https://linkedin.com/in/username">
+                            <span class="error-msg" id="err-linkedin"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-github"><i class="fa-brands fa-github"></i> GitHub URL</label>
+                            <input type="url" id="input-github" class="form-input" placeholder="https://github.com/username">
+                            <span class="error-msg" id="err-github"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-portfolio"><i class="fa-solid fa-globe"></i> Portfolio URL</label>
+                            <input type="url" id="input-portfolio" class="form-input" placeholder="https://portfolio.dev">
+                            <span class="error-msg" id="err-portfolio"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Profile Photograph</label>
+                        <div id="image-drag-zone" class="image-dropzone">
+                            <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
+                            <p>Drag & Drop Photo or <span>Browse Files</span></p>
+                            <input type="file" id="input-avatar" accept="image/*" hidden>
+                        </div>
+                        <div id="avatar-preview-container" class="avatar-preview-box hidden">
+                            <img id="avatar-preview-img" src="" alt="Profile Preview">
+                            <button id="btn-remove-avatar" type="button" class="btn-remove-thumb"><i class="fa-solid fa-circle-xmark"></i> Remove</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-with-counter">
+                            <label for="input-summary">Professional Summary</label>
+                            <span id="char-count-summary" class="char-counter">0 / 500 characters</span>
+                        </div>
+                        <textarea id="input-summary" class="form-input" rows="4" maxlength="500" placeholder="High-performing software delivery specialist with 5+ years of production experience optimizing..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item" id="sec-experience">
+                <button class="accordion-trigger" aria-expanded="false">
+                    <span><i class="fa-solid fa-briefcase icon-gradient"></i> 2. Professional Experience</span>
+                    <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div id="experience-list-container" class="repeater-container">
+                        </div>
+                    <button id="btn-add-experience" type="button" class="btn btn-add"><i class="fa-solid fa-plus"></i> Add Experience</button>
+                </div>
+            </div>
+
+            <div class="accordion-item" id="sec-education">
+                <button class="accordion-trigger" aria-expanded="false">
+                    <span><i class="fa-solid fa-graduation-cap icon-gradient"></i> 3. Academic Education</span>
+                    <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div id="education-list-container" class="repeater-container">
+                        </div>
+                    <button id="btn-add-education" type="button" class="btn btn-add"><i class="fa-solid fa-plus"></i> Add Education</button>
+                </div>
+            </div>
+
+            <div class="accordion-item" id="sec-skills">
+                <button class="accordion-trigger" aria-expanded="false">
+                    <span><i class="fa-solid fa-screwdriver-wrench icon-gradient"></i> 4. Core Skills Inventory</span>
+                    <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="skills-search-box">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="skills-search-input" placeholder="Search standard skills or press Enter to add custom tag...">
+                    </div>
+                    
+                    <div class="skills-split-layout">
+                        <div class="skills-matrix">
+                            <h4><i class="fa-solid fa-layer-group"></i> Preset Core Technologies</h4>
+                            <div class="checkbox-scroller" id="preset-tech-skills">
+                                </div>
+
+                            <h4 class="mt-4"><i class="fa-solid fa-user-gear"></i> Core Soft Skills</h4>
+                            <div class="checkbox-scroller" id="preset-soft-skills">
+                                </div>
+                        </div>
+
+                        <div class="skills-tags-panel">
+                            <h4><i class="fa-solid fa-tags"></i> Active Target System Tags</h4>
+                            <div id="skills-tags-container" class="tags-flex-wrapper">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item" id="sec-projects">
+                <button class="accordion-trigger" aria-expanded="false">
+                    <span><i class="fa-solid fa-code-branch icon-gradient"></i> 5. Projects Portfolio</span>
+                    <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div id="project-list-container" class="repeater-container"></div>
+                    <button id="btn-add-project" type="button" class="btn btn-add"><i class="fa-solid fa-plus"></i> Add Project</button>
+                </div>
+            </div>
+
+            <div class="accordion-item" id="sec-certifications">
+                <button class="accordion-trigger" aria-expanded="false">
+                    <span><i class="fa-solid fa-award icon-gradient"></i> 6. Certifications</span>
+                    <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div id="certification-list-container" class="repeater-container"></div>
+                    <button id="btn-add-certification" type="button" class="btn btn-add"><i class="fa-solid fa-plus"></i> Add Certification</button>
+                </div>
+            </div>
+
+            <div class="accordion-item" id="sec-extra">
+                <button class="accordion-trigger" aria-expanded="false">
+                    <span><i class="fa-solid fa-folder-plus icon-gradient"></i> 7. Additional Profiles & Details</span>
+                    <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="form-group">
+                        <label for="input-languages">Languages (Comma Separated)</label>
+                        <input type="text" id="input-languages" class="form-input" placeholder="English (Native), Spanish (Conversational), Japanese">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-achievements">Key Achievements (One per line)</label>
+                        <textarea id="input-achievements" class="form-input" rows="3" placeholder="Won 1st place among 200+ participants at National Hackathon 2025&#10;Published research paper on Edge Computing optimization metrics"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-interests">Interests & Hobbies (Comma Separated)</label>
+                        <input type="text" id="input-interests" class="form-input" placeholder="Open Source Contributing, Cycle Touring, Generative Art">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="preview-workspace" aria-label="Resume Real-time Preview and Diagnostics">
+            
+            <div class="analytics-dashboard">
+                <div class="score-card">
+                    <div class="circular-progress-box">
+                        <svg class="progress-ring-svg" width="90" height="90">
+                            <circle class="ring-bg" cx="45" cy="45" r="38"></circle>
+                            <circle id="ats-score-ring" class="ring-fill" cx="45" cy="45" r="38"></circle>
+                        </svg>
+                        <div id="ats-score-text" class="ring-score-value">0</div>
+                    </div>
+                    <div class="score-meta">
+                        <h3>ATS Diagnostic Score</h3>
+                        <div id="strength-meter-bar" class="strength-meter"><span style="width: 0%"></span></div>
+                        <p id="strength-meter-label">Empty Profile Matrix</p>
+                    </div>
+                </div>
+
+                <div class="optimization-coach">
+                    <h4><i class="fa-solid fa-wand-magic-sparkles"></i> ATS Real-Time Optimization Engine</h4>
+                    <ul id="diagnostic-suggestions-list" class="suggestion-feed">
+                        </ul>
+                    <div class="power-verbs-panel">
+                        <h5><i class="fa-solid fa-bolt"></i> Contextual Action Verbs Recommendation</h5>
+                        <div class="verb-cloud">
+                            <span class="verb-tag">Executed</span><span class="verb-tag">Architected</span><span class="verb-tag">Optimized</span><span class="verb-tag">Spearheaded</span><span class="verb-tag">Formulated</span><span class="verb-tag">Overhauled</span><span class="verb-tag">Maximized</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-toolbar">
+                <button id="btn-print" class="btn btn-primary"><i class="fa-solid fa-print"></i> System Print</button>
+                <button id="btn-download-pdf" class="btn btn-accent"><i class="fa-solid fa-file-pdf"></i> Export High-Fi PDF</button>
+            </div>
+
+            <div class="resume-shadow-box">
+                <div id="ats-resume-canvas" class="resume-sheet font-serif">
+                    <div id="canvas-header" class="canvas-section header-layout"></div>
+                    <div id="canvas-summary" class="canvas-section clear-block"></div>
+                    <div id="canvas-experience" class="canvas-section clear-block"></div>
+                    <div id="canvas-education" class="canvas-section clear-block"></div>
+                    <div id="canvas-projects" class="canvas-section clear-block"></div>
+                    <div id="canvas-skills" class="canvas-section clear-block"></div>
+                    <div id="canvas-certifications" class="canvas-section clear-block"></div>
+                    <div id="canvas-extra" class="canvas-section clear-block"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
