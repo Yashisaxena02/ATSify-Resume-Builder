@@ -1,0 +1,1020 @@
+/* ==========================================================================
+   PRODUCTION ENGINE STYLING TOKENS & SYSTEM VARIABLES
+   ========================================================================== */
+:root {
+    --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-resume-serif: 'Merriweather', Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-resume-sans: 'Inter', sans-serif;
+    
+    /* Light Theme Base Variables */
+    --bg-app: #f4f6f9;
+    --bg-glass: rgba(255, 255, 255, 0.75);
+    --bg-card: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+    --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
+    
+    /* Accent Palette Matrices */
+    --accent-sapphire: #2563eb;
+    --accent-sapphire-hover: #1d4ed8;
+    --accent-emerald: #10b981;
+    --accent-emerald-hover: #059669;
+    --accent-amethyst: #8b5cf6;
+    --accent-amethyst-hover: #7c3aed;
+    --accent-amber: #f59e0b;
+    --accent-amber-hover: #d97706;
+    
+    --active-accent: var(--accent-sapphire);
+    --active-accent-hover: var(--accent-sapphire-hover);
+    
+    --danger-color: #ef4444;
+    --danger-hover: #dc2626;
+    --success-color: #22c55e;
+    --warning-color: #eab308;
+    
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Theme Domain Mutation Variables */
+[data-theme="dark"] {
+    --bg-app: #0f172a;
+    --bg-glass: rgba(30, 41, 59, 0.7);
+    --bg-card: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border-color: #334155;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.2);
+    --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.3);
+    --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.4);
+}
+
+/* Accent Mapping Hooks */
+body[data-accent="sapphire"] { --active-accent: var(--accent-sapphire); --active-accent-hover: var(--accent-sapphire-hover); }
+body[data-accent="emerald"] { --active-accent: var(--accent-emerald); --active-accent-hover: var(--accent-emerald-hover); }
+body[data-accent="amethyst"] { --active-accent: var(--accent-amethyst); --active-accent-hover: var(--accent-amethyst-hover); }
+body[data-accent="amber"] { --active-accent: var(--accent-amber); --active-accent-hover: var(--accent-amber-hover); }
+
+/* ==========================================================================
+   GLOBAL RESET & LAYOUT DESIGN BASE
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-ui);
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+/* ==========================================================================
+   APPLICATION HEADER COMPONENT
+   ========================================================================== */
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    gap: 1.5rem;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-icon {
+    background: linear-gradient(135deg, var(--active-accent), #3b82f6);
+    color: #ffffff;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+.logo-area h1 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.logo-area h1 span {
+    color: var(--active-accent);
+}
+
+/* PROGRESS PANEL INTERACTION */
+.global-progress-container {
+    flex: 1;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.progress-track {
+    height: 8px;
+    background-color: var(--border-color);
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--active-accent), #60a5fa);
+    border-radius: 9999px;
+    transition: width var(--transition-smooth);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* THEME AND ACCENT CONTROLS */
+.theme-selector-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-right: 1px solid var(--border-color);
+    padding-right: 1rem;
+}
+
+.accent-picker {
+    display: flex;
+    gap: 0.35rem;
+}
+
+.accent-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform var(--transition-fast);
+    border: 2px solid transparent;
+}
+
+.accent-dot:hover { transform: scale(1.2); }
+.accent-dot.active { border-color: var(--text-primary); transform: scale(1.1); }
+.accent-dot.sapphire { background-color: var(--accent-sapphire); }
+.accent-dot.emerald { background-color: var(--accent-emerald); }
+.accent-dot.amethyst { background-color: var(--accent-amethyst); }
+.accent-dot.amber { background-color: var(--accent-amber); }
+
+/* ==========================================================================
+   CORE APPLICATION ENGINE CONTAINER
+   ========================================================================== */
+.app-container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: calc(100vh - 73px);
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   LEFT COMPONENT: FORMS ARCHITECTURE & EXPANSIONS
+   ========================================================================== */
+.form-workspace {
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: var(--bg-app);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* ACCORDION ARCHITECTURE MODULES */
+.accordion-item {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.accordion-item:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.accordion-trigger {
+    width: 100%;
+    padding: 1.25rem;
+    background: none;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.icon-gradient {
+    color: var(--active-accent);
+    margin-right: 0.5rem;
+}
+
+.arrow-icon {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    transition: transform var(--transition-smooth);
+}
+
+.accordion-item.expanded .arrow-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    padding: 0 1.25rem 1.25rem 1.25rem;
+    display: none;
+    border-top: 1px solid transparent;
+    animation: fadeSlideUp var(--transition-smooth) forwards;
+}
+
+.accordion-item.expanded .accordion-content {
+    display: block;
+    border-top: 1px solid var(--border-color);
+}
+
+/* GENERAL FORM GRID SYSTEMS */
+.grid-2-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.grid-3-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+
+.form-group {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-group label .required {
+    color: var(--danger-color);
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: var(--bg-app);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-input:focus {
+    border-color: var(--active-accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+textarea.form-input {
+    resize: vertical;
+}
+
+.label-with-counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.char-counter {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* IMAGE UPLOAD UI MATRIX */
+.image-dropzone {
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    text-align: center;
+    background-color: var(--bg-app);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.image-dropzone:hover, .image-dropzone.dragover {
+    background-color: rgba(37, 99, 235, 0.02);
+    border-color: var(--active-accent);
+}
+
+.dropzone-icon {
+    font-size: 2rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.image-dropzone p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.image-dropzone p span {
+    color: var(--active-accent);
+    font-weight: 600;
+}
+
+.avatar-preview-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background-color: var(--bg-app);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.avatar-preview-box img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.btn-remove-thumb {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    font-weight: 500;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* REPEATER ENTRIES AND BLOCK ANIMATIONS */
+.repeater-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.repeater-card {
+    background-color: var(--bg-app);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    position: relative;
+    animation: fadeSlideUp var(--transition-smooth) forwards;
+}
+
+.card-deletion-overlay {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.btn-delete-entry {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: color var(--transition-fast);
+}
+
+.btn-delete-entry:hover {
+    color: var(--danger-color);
+}
+
+.checkbox-inline-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.checkbox-inline-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--active-accent);
+}
+
+.checkbox-inline-row label {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+/* DUAL TRACK SKILLS INVENTORY SYSTEM */
+.skills-search-box {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-app);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.search-icon {
+    color: var(--text-secondary);
+    margin-right: 0.75rem;
+}
+
+.skills-search-box input {
+    width: 100%;
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0.75rem 0;
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+}
+
+.skills-split-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 1.5rem;
+}
+
+.skills-matrix h4, .skills-tags-panel h4 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.checkbox-scroller {
+    max-height: 160px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem;
+    background-color: var(--bg-app);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.skill-check-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.skill-check-item input {
+    accent-color: var(--active-accent);
+}
+
+.tags-flex-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem;
+    background-color: var(--bg-app);
+    min-height: 100px;
+    align-content: flex-start;
+}
+
+.skill-tag {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.25rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    animation: popIn var(--transition-fast) ease-out;
+}
+
+.skill-tag i {
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.skill-tag i:hover { color: var(--danger-color); }
+
+/* VALIDATION MESSAGE ENGINE ELEMENTS */
+.form-input.invalid-frame {
+    border-color: var(--danger-color) !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.error-msg {
+    color: var(--danger-color);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
+    display: block;
+}
+
+/* ==========================================================================
+   RIGHT COMPONENT: PREVIEW & REAL-TIME ANALYTICS
+   ========================================================================== */
+.preview-workspace {
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border-left: 1px solid var(--border-color);
+}
+
+/* PREMIUM COGNITIVE ANALYTICS PANEL */
+.analytics-dashboard {
+    background-color: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.score-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.25rem;
+}
+
+.circular-progress-box {
+    position: relative;
+    width: 90px;
+    height: 90px;
+}
+
+.progress-ring-svg {
+    transform: rotate(-90deg);
+}
+
+.ring-bg {
+    fill: none;
+    stroke: var(--bg-app);
+    stroke-width: 7;
+}
+
+.ring-fill {
+    fill: none;
+    stroke: var(--danger-color);
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-dasharray: 238.76;
+    stroke-dashoffset: 238.76;
+    transition: stroke-dashoffset var(--transition-smooth), stroke var(--transition-smooth);
+}
+
+.ring-score-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.score-meta {
+    flex: 1;
+}
+
+.score-meta h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+
+.strength-meter {
+    height: 6px;
+    background-color: var(--bg-app);
+    border-radius: 9999px;
+    overflow: hidden;
+    margin-bottom: 0.35rem;
+}
+
+.strength-meter span {
+    display: block;
+    height: 100%;
+    background-color: var(--danger-color);
+    width: 0;
+    transition: width var(--transition-smooth), background-color var(--transition-smooth);
+}
+
+#strength-meter-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* REAL-TIME ENGINE FEEDBACK CRITIQUE RULES */
+.suggestion-feed {
+    list-style: none;
+    max-height: 140px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding-right: 0.25rem;
+}
+
+.suggestion-feed li {
+    font-size: 0.8rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    line-height: 1.4;
+}
+
+.suggestion-feed li.pass { color: var(--success-color); }
+.suggestion-feed li.fail { color: var(--text-secondary); }
+.suggestion-feed li.fail i { color: var(--warning-color); }
+
+.power-verbs-panel {
+    background-color: var(--bg-app);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem;
+}
+
+.power-verbs-panel h5 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.verb-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.verb-tag {
+    background-color: var(--bg-card);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* THE PREVIEW ACTIONS TOOLBAR */
+.preview-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* ==========================================================================
+   THE RIGID ATS GENERATED SHEET EMBEDDED ENGINE
+   ========================================================================== */
+.resume-shadow-box {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+}
+
+/* TARGET ENGINE BASE ARCHITECTURE SPECIFIC TO COGNITIVE CONTEXTS */
+.resume-sheet {
+    width: 210mm; /* A4 Metric Conformity Standard */
+    min-height: 297mm;
+    background-color: #ffffff;
+    color: #111111; /* Absolute solid color systems optimize layout scans */
+    padding: 20mm;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 4.5mm;
+    box-sizing: border-box;
+    position: relative;
+    word-wrap: break-word;
+}
+
+/* FONTS SWAPPING INJECTORS */
+.resume-sheet.font-serif { font-family: var(--font-resume-serif); }
+.resume-sheet.font-sans { font-family: var(--font-resume-sans); }
+
+.canvas-section {
+    width: 100%;
+}
+
+.clear-block::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* ATS HEADERS ARCHITECTURES */
+.resume-sheet h2.section-title {
+    font-size: 11.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #222222;
+    padding-bottom: 1mm;
+    margin-bottom: 2.5mm;
+    color: #111111;
+    margin-top: 2mm;
+}
+
+/* CUSTOM ROW BLOCK SCHEDULER ELEMENTS */
+.resume-header-block {
+    text-align: center;
+    margin-bottom: 2mm;
+}
+
+.resume-header-block h1 {
+    font-size: 22pt;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5mm;
+    color: #111111;
+}
+
+.resume-header-block .job-title {
+    font-size: 12pt;
+    font-style: italic;
+    color: #333333;
+    margin-bottom: 2mm;
+}
+
+.resume-header-block .contact-channels {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 3mm;
+    font-size: 9pt;
+    color: #444444;
+}
+
+.resume-header-block .contact-channels span {
+    display: inline-flex;
+    align-items: center;
+}
+
+.resume-header-block .avatar-embed {
+    display: block;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 2.5mm auto;
+    border: 1px solid #dddddd;
+}
+
+.resume-summary-text {
+    font-size: 9.5pt;
+    line-height: 1.5;
+    text-align: justify;
+    color: #222222;
+}
+
+/* SUBITEM DATA ELEMENTS FOR EXPERIENCES/EDUCATION */
+.resume-item-row {
+    margin-bottom: 3.5mm;
+}
+
+.resume-item-row:last-child {
+    margin-bottom: 0;
+}
+
+.item-meta-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #111111;
+    margin-bottom: 0.5mm;
+}
+
+.item-meta-sub {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9.5pt;
+    font-style: italic;
+    color: #333333;
+    margin-bottom: 1.5mm;
+}
+
+.resume-bullet-list {
+    margin-left: 5mm;
+    font-size: 9.5pt;
+    line-height: 1.45;
+    color: #222222;
+}
+
+.resume-bullet-list li {
+    margin-bottom: 0.8mm;
+    text-align: justify;
+}
+
+/* SKILLS SYSTEM MATRIX RENDER */
+.resume-skills-line {
+    font-size: 9.5pt;
+    line-height: 1.5;
+    color: #222222;
+}
+
+.resume-skills-line strong {
+    color: #111111;
+}
+
+/* ==========================================================================
+   BUTTONS AND COMPONENT ATOMS GENERAL PACK
+   ========================================================================== */
+.btn {
+    padding: 0.65rem 1.25rem;
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn-primary { background-color: var(--text-primary); color: var(--bg-card); }
+.btn-primary:hover { background-color: #0f172a; }
+
+.btn-secondary { background-color: var(--border-color); color: var(--text-primary); }
+.btn-secondary:hover { background-color: #cbd5e1; }
+
+.btn-accent { background: linear-gradient(135deg, var(--active-accent), #3b82f6); color: #ffffff; box-shadow: 0 4px 12px rgba(37,99,235,0.15); }
+.btn-accent:hover { background: var(--active-accent-hover); box-shadow: 0 6px 16px rgba(37,99,235,0.25); }
+
+.btn-danger { background-color: #fee2e2; color: var(--danger-color); }
+.btn-danger:hover { background-color: #fca5a5; }
+
+.btn-add {
+    width: 100%;
+    background-color: var(--bg-app);
+    border: 1px dashed var(--border-color);
+    color: var(--active-accent);
+}
+.btn-add:hover {
+    background-color: rgba(37, 99, 235, 0.04);
+    border-color: var(--active-accent);
+}
+
+.icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+.icon-btn:hover { background-color: var(--bg-app); }
+
+/* Utility Structs */
+.hidden { display: none !important; }
+.mt-4 { margin-top: 1rem; }
+
+/* ==========================================================================
+   CSS ANIMATION INJECTORS
+   ========================================================================== */
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT SYSTEM QUERY ENGINE
+   ========================================================================== */
+@media (max-width: 1200px) {
+    .app-container {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: visible;
+    }
+    .form-workspace, .preview-workspace {
+        overflow-y: visible;
+        height: auto;
+    }
+    .preview-workspace {
+        border-left: none;
+        border-top: 2px solid var(--border-color);
+    }
+    .resume-shadow-box {
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+    .resume-sheet {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .header-actions {
+        justify-content: space-between;
+    }
+    .global-progress-container {
+        max-width: 100%;
+    }
+    .grid-2-col, .grid-3-col, .skills-split-layout {
+        grid-template-columns: 1fr;
+    }
+    .checkbox-scroller {
+        grid-template-columns: 1fr;
+    }
+    .resume-sheet {
+        padding: 10mm;
+        transform: scale(0.9);
+        transform-origin: top left;
+        width: 100%;
+        min-height: auto;
+    }
+}
+
+@media print {
+    @page {
+        size: A4;
+        margin: 0;
+    }
+    body * { visibility: hidden; }
+    #ats-resume-canvas, #ats-resume-canvas * { visibility: visible; }
+    #ats-resume-canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+        box-shadow: none;
+        padding: 20mm;
+        margin: 0;
+        width: 210mm;
+        min-height: 297mm;
+    }
+}
